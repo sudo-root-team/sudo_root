@@ -5,10 +5,10 @@ except ImportError:
 	from distutils.core import setup
 
 config = {
-    'name': 'Sudo_root CTF framework',
-    'author': 'Sudo_root Team',
-    'author_email': 'ayouben9@gmail.com',
-    #'long_description': 'from a README.md file',
+	'name': 'Sudo_root CTF framework',
+	'author': 'Sudo_root Team',
+	'author_email': 'ayouben9@gmail.com',
+	#'long_description': 'from a README.md file',
 	'description': 'Python modules which provide a suite of useful utilities for CTFs',
 	'url': 'URL to get it at',
 	'download_url': 'Where to download it',
