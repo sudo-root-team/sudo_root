@@ -1,2 +1,2 @@
 # sudo_root
-Python module which provide a suite of useful utilities for CTFs
+Python modules which provide a suite of useful utilities for CTFs
