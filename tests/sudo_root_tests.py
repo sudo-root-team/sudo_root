@@ -1,12 +1,13 @@
 from nose.tools import *
-import NAME
+from sudo_root import *
 
-def setup():
-	print "SETUP!"
-
-def teardown():
-	print "TEAR DOWN!"
-
-def test_basic():
-	print "I RAN!"
+def sudo_test():
+    print 
+    """###Sudoers
+       #loko
+       #philomath213
+       #sudo
+       #youben
+       #zakizak
+    """        
 
