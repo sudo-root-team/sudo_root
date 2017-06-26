@@ -1,5 +1,7 @@
 """Package Description"""
 
+from sudo_root.version import __version__
+
 #This line will help the user to import with the use of the module_name (from module_name import THINGS instead of from module_name.file import THINGS)
 #from module_name import *
 
@@ -9,5 +11,4 @@
 # __all__ = ['THINGS']
 
 
-#Version, keep it updated
-__version__ = '0.1'
+version = __version__
