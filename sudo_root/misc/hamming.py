@@ -16,7 +16,7 @@ def block2bin(block):
                 
     return bbin
 
-def decode_15(bin_block):
+def decode_block_15(bin_block):
     b = bin_block
     i = 0 #bit position
     while i < 8:
@@ -37,3 +37,13 @@ def decode_15(bin_block):
     
     data_corrected = [bin_decoded[j] for j in [2,4,5,6,8,9,10,11,12,13,14]]
     return "".join(map(chr,data_corrected))
+
+def decode_15(data):
+    blocks = split_15(data)
+    bin_blocks = [block2bin(b) for b in blocks]
+    data_out = ""
+
+    for b in bin_blocks:
+        data_out += decode_block_15(b)
+    
+    return data_out
