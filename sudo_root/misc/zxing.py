@@ -35,7 +35,7 @@ class RespParser(HTMLParser):
 def decode(filename):
     "Decode the barcode image (filename)"
     files = dict(f=open(filename,"rb").read())
-    r = req.post("https://zxing.org/w/decode",files=files)
+    r = req.post("https://zxing.org/w/decode",files=files,timeout=5)
     
     parser = RespParser()
     parser.feed(r.text)
