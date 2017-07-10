@@ -1,5 +1,17 @@
+"""Module to break Linear Congruential Generator"""
 class Lcg(object):
     
+    """Create LCG with a state to generate some random value,
+    or without state to break LCG with 3 consecutive known values.
+    
+    Exemple:
+    
+    from sudo_root.crypto import lcg
+    
+    l = lcg.Lcg(multiplier, addend, mod, bits_hidden)
+    state = l.get_state(r0, r1, r3) # this are 3 consecutive output
+    l.next() give us the expected output
+    """
     def __init__(self, multiplier, addend, mod, bits_hidden, state=None):
         self.a = multiplier
         self.b = addend
@@ -8,6 +20,7 @@ class Lcg(object):
         self.state = state
         
     def get_state(self, r0, r1, r2):
+        "break the LCG with 3 consecutive output."
         t = self.hidder * r1 - self.a * self.hidder * r0 - self.b + self.hidder - 1
         t %= self.mod
         
@@ -22,5 +35,7 @@ class Lcg(object):
         return 0
     
     def next(self):
+        "The next value of the LCG."
         self.state = (self.a * self.state + self.b) % self.mod
         return self.state / self.hidder
+

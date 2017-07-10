@@ -1,15 +1,16 @@
+"""Module that help to deal with hamming data"""
 def split_15(hdata):
-    "split hdata to blocks of 15 bytes"
+    "Split hdata to blocks of 15 bytes."
     dataout = [hdata[i : i+15] for i in range(0,len(hdata),15)]
     return dataout
 
 def split_7(hdata):
-    "split hdata to blocks of 7 bytes"
+    "Split hdata to blocks of 7 bytes."
     dataout = [hdata[i : i+7] for i in range(0,len(hdata),7)]
     return dataout
 
 def block2bin(block):
-    "codify each byte of block in binary form (8 bits)"
+    "Codify each byte of block in binary form (8 bits)."
     bbin =[]
     for b in block:
         bbin.append([int(c) for c in bin(ord(b))[2:].zfill(8)])
@@ -17,6 +18,7 @@ def block2bin(block):
     return bbin
 
 def decode_block_15(bin_block):
+    "Decode and correct a block of 15 bytes, represented in a binary form."
     b = bin_block
     i = 0 #bit position
     while i < 8:
@@ -39,6 +41,19 @@ def decode_block_15(bin_block):
     return "".join(map(chr,data_corrected))
 
 def decode_15(data):
+    """Decode and correct data using hamming_15_11
+    Exemple:
+    
+    from sudo_root.misc import hamming as hamm
+    
+    f = open("file.hamm","rb")
+    hdata = f.read()
+    f.close()
+    data_out = hamm.decode_15(hdata)
+    f = open("decoded","wb")
+    f.write(data_out)
+    f.close()
+    """
     blocks = split_15(data)
     bin_blocks = [block2bin(b) for b in blocks]
     data_out = ""
