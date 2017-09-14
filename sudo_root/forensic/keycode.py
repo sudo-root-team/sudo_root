@@ -250,9 +250,10 @@ def get_key_in(pcap_file):
 def map_key_in(in_reports):
     """ Return the keystroke according to the input reports. """
     keystroke = []
+    
     for rep in in_reports:
         # skip null report
-        if rep == "\x00"*8:
+        if rep == "\x00" * 8:
             continue
             
         s_keys = [] # simultaneous key 
@@ -287,5 +288,22 @@ def get_keystroke_from_pcap(pcap_file):
     
     input_reports = get_key_in(pcap_file)
     return map_key_in(input_reports)
+    
+def get_keystroke_from_data(data_file):
+    """ Extract keystroke from data file as outputed by tshark
+        tshark -r key.pcap -T fields -e usb.capdata"""
+        
+    data_reports = open(data_file).read().split('\n')
+    reports = []
+    
+    for d in data_reports:
+        if len(d) != 23:
+            continue
+        r = map(lambda x : int(x, 16), d.split(':'))
+        reports.append("".join(map(chr, r)))
+    
+    return map_key_in(reports)    
+        
+    
 
     
