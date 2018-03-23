@@ -9,7 +9,7 @@ class Lcg(object):
     from sudo_root.crypto import lcg
     
     l = lcg.Lcg(multiplier, addend, mod, bits_hidden)
-    state = l.get_state(r0, r1, r3) # this are 3 consecutive output
+    state = l.get_state(r0, r1, r2) # this are 3 consecutive output
     l.next() give us the expected output
     """
     def __init__(self, multiplier, addend, mod, bits_hidden, state=None):
