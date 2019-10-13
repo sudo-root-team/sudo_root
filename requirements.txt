@@ -1,0 +1,4 @@
+HTMLParser
+Pillow
+requests
+scapy

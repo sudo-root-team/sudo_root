@@ -1,25 +1,25 @@
-from setuptools import setup
-from setuptools import find_packages
+import setuptools
+import os
+#from sudo_root import version
 
-from sudo_root import version
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-config = {
-    'name': 'sudo_root',
-    'author': 'Sudo_root Team',
-    'author_email': 'ayouben9@gmail.com',
-    #'long_description': 'from a README.md file',
-    'description': 'Python modules which provide a suite of useful utilities for CTFs',
-    'url': 'URL to get it at',
-    'download_url': 'Where to download it',
-    'version': version,
-    'install_requires': [],
-    'packages': find_packages(),#The one used in the directory
-    'scripts': []
-    #'include_package_data': True/False # We have to add Manifest.in file
-    	
-    #link some cmd_line with function
-    #'entry_points': {'console_scripts': ['cmd_line = module:function',],}
-}
+requirements = read("requirements.txt").split()
 
-setup(**config)
+setuptools.setup(
+    name="sudo_root",
+    version="0.1",#version,
+    url="https://github.com/sudo-root-team/sudo_root",
+    author="Sudo_root Team",
+    author_email="ayouben9@gmail.com",
+    description="Library focused on CTF and cyber-security tools",
+    long_description=read("README.md"),
+    long_description_content_type="text/markdown",
+    keywords="ctf pwn crypto forensic stegano web reverse engineering cyber-security security",
+    install_requires=requirements,
+    packages=setuptools.find_packages(),
+    license="GPLv3"
+)
