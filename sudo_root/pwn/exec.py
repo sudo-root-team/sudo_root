@@ -44,9 +44,26 @@ class Remote(object):
 
         idx = self._buffer.find(self.line_sep)
         line = self._buffer[:idx]
+        # +1 for the jumping the '\n'
         self._buffer = self._buffer[idx+1:]
         return line
 
     def sendline(self, to_send):
         to_send += self.line_sep
+        return self._send(to_send)
+
+    def recv(self, n_bytes):
+        """Read the exact number of bytes from the socket"""
+        if n_bytes < 0:
+            return b''
+        # fill with already buffered data
+        buffer = self._buffer[:n_bytes]
+        self._buffer = self._buffer[n_bytes:]
+        # get remaining bytes from the socket
+        if len(buffer) < n_bytes:
+            to_read = n_bytes - len(buffer)
+            buffer += self._socket.recv(to_read)
+        return buffer
+
+    def send(self, to_send):
         return self._send(to_send)
