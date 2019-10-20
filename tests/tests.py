@@ -16,7 +16,7 @@ class TestLSBExtractor(unittest.TestCase):
 
         self.assertEqual(msg, "Hello World !!!")
 
-    def test_all_lsb(self):
+    def test_all_cycle(self):
         img_path = "./test_assets/stegano/esi_sba_lsb_cycle.png"
 
         lsb = LSBExtractor(img_path)
