@@ -1,5 +1,6 @@
 import unittest
 from sudo_root.stegano import LSBExtractor
+from sudo_root.misc import zxing
 
 
 class TestLSBExtractor(unittest.TestCase):
@@ -27,6 +28,16 @@ class TestLSBExtractor(unittest.TestCase):
             msg += chr(int(out[i:i+8], 2))
 
         self.assertEqual(msg, "LSB cycle hidden message")
+
+
+class TestZxing(unittest.TestCase):
+
+    def test_decode(self):
+        img_path = "./test_assets/misc/qrcode_wikipedia.png"
+
+        result = zxing.decode(img_path)
+        raw_text = result["Raw text"]
+        self.assertEqual(raw_text, "http://en.m.wikipedia.org")
 
 
 if __name__ == '__main__':
