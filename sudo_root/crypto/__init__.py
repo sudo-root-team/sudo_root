@@ -1,5 +1,5 @@
 """Crypto modules"""
 
-from sudo_root.crypto import lcg
+from sudo_root.crypto.lcg import Lcg
 
-__all__ = ["lcg"]
+__all__ = ["Lcg"]
