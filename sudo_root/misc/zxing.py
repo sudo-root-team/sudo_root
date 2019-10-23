@@ -15,7 +15,7 @@ def parse_zxing_respone(response):
         'Parsed Result': 'tr[5]/td[2]/pre'
         }
     parsed = dict()
-    html = lxml.html.fromstring(response.text)
+    html = lxml.html.fromstring(response)
     base_xpath = '/html/body/div/table/'
     for value_name, v_xpath in val_xpath.items():
         try:
