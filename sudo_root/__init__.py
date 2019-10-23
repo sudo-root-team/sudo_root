@@ -7,11 +7,12 @@ from sudo_root.version import __version__
 from sudo_root.crypto import *
 from sudo_root.misc import *
 from sudo_root.forensic import *
+from sudo_root.stegano import *
 
 
 #List of all modules that can be imported from that modules using from module_name import *, this is useful if we use other modules in our module
 #You can also add this line in the module files
-__all__ = ["crypto", "misc", "hamming", "zxing", "lcg", "keycode"]
+__all__ = ["crypto", "misc", "hamming", "zxing", "lcg", "keycode", "LSBExtractor"]
 
 
 version = __version__

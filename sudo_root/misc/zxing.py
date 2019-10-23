@@ -1,53 +1,42 @@
 """This module use the zxing.org website to decode 1D and 2D barcode"""
 
 import requests as req
-from HTMLParser import HTMLParser
+import lxml.html
 
-class RespParser(HTMLParser):
-    """Create a parser that will parse the response
-    from the zxing.org website.
+
+def parse_zxing_respone(response):
+    """Parse the zxing response to get barcode decoded value.
     """
-    def __init__(self):
-        HTMLParser.__init__(self)
-        self.decoded = dict()
-        self.decoded['Raw text'] = ""
-        self.decoded['Raw bytes'] = ""
-        self.decoded['Barcode format'] = ""
-        self.decoded['Parsed Result Type'] = ""
-        self.decoded['Parsed Result'] = ""
-        
-        self.found = dict()
-        self.found['Raw text'] = False
-        self.found['Raw bytes'] = False
-        self.found['Barcode format'] = False
-        self.found['Parsed Result Type'] = False
-        self.found['Parsed Result'] = False                        
-        
-    def handle_data(self, data):
-        
-        for key in self.found.iterkeys():
-            if self.found[key]:
-                self.decoded[key] = data
-                self.found[key] = False
-        
-        for key in self.found.iterkeys():
-            if data ==  key:
-                self.found[key] = True
-        
+    val_xpath = {
+        'Raw text': 'tr[1]/td[2]/pre',
+        'Raw bytes': 'tr[2]/td[2]/pre',
+        'Barcode format': 'tr[3]/td[2]',
+        'Parsed Result Type': 'tr[4]/td[2]',
+        'Parsed Result': 'tr[5]/td[2]/pre'
+        }
+    parsed = dict()
+    html = lxml.html.fromstring(response)
+    base_xpath = '/html/body/div/table/'
+    for value_name, v_xpath in val_xpath.items():
+        try:
+            value = html.xpath(base_xpath + v_xpath)[0].text
+            parsed[value_name] = value
+        except IndexError:
+            print(value_name)
+            parsed[value_name] = ''
+
+    return parsed
+
 
 def decode(filename):
     """Decode the barcode image (filename)
-    
+
     Exemple:
-    
-    from sudo_root.misc import zxing
-    
-    print zxing.decode("qr.png")
+
+    >>> from sudo_root.misc import zxing
+    >>> print zxing.decode("qr.png")
     """
-    
-    files = dict(f=open(filename,"rb").read())
-    r = req.post("https://zxing.org/w/decode",files=files,timeout=5)
-    
-    parser = RespParser()
-    parser.feed(r.text)
-    return parser.decoded
+
+    files = dict(f=open(filename, "rb").read())
+    r = req.post("https://zxing.org/w/decode", files=files, timeout=5)
+    return parse_zxing_respone(r.text)
