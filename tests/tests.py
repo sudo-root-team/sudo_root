@@ -1,13 +1,18 @@
+import os
 import unittest
 from sudo_root.stegano import LSBExtractor
 from sudo_root.misc import zxing
 from sudo_root.crypto import Lcg
 
 
+def relative_path(path):
+    return os.path.join(os.path.dirname(__file__), path)
+
+
 class TestLSBExtractor(unittest.TestCase):
 
     def test_all_lsb(self):
-        img_path = "./test_assets/stegano/lamiri_sba.png"
+        img_path = relative_path("test_assets/stegano/lamiri_sba.png")
 
         lsb = LSBExtractor(img_path)
         out = lsb.all_lsb(40)
@@ -19,7 +24,7 @@ class TestLSBExtractor(unittest.TestCase):
         self.assertEqual(msg, "Hello World !!!")
 
     def test_all_cycle(self):
-        img_path = "./test_assets/stegano/esi_sba_lsb_cycle.png"
+        img_path = relative_path("test_assets/stegano/esi_sba_lsb_cycle.png")
 
         lsb = LSBExtractor(img_path)
         out = lsb.cycle_lsb(192)
@@ -34,7 +39,7 @@ class TestLSBExtractor(unittest.TestCase):
 class TestZxing(unittest.TestCase):
 
     def test_decode(self):
-        img_path = "./test_assets/misc/qrcode_wikipedia.png"
+        img_path = relative_path("test_assets/misc/qrcode_wikipedia.png")
 
         result = zxing.decode(img_path)
         raw_text = result["Raw text"]
