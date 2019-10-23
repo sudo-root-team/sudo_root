@@ -39,6 +39,5 @@ class Lcg(object):
 
     def next(self):
         "The next value of the LCG."
-        print('state {}'.format(self.state))
         self.state = (self.a * self.state + self.b) % self.mod
         return self.state // self.hidder
