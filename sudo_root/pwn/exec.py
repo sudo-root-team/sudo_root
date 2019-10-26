@@ -104,7 +104,6 @@ class Local(Executor):
     """Provide a communication channel with a local process. It takes care
     of executing the process.
     """
-    # FIXME: local process communication doesn't work
     def __init__(self, binary_path, args=[], read_size=1, **kwargs):
         """
         Args:
@@ -134,4 +133,6 @@ class Local(Executor):
         self._buffer += self._stdout.read(self.read_size)
 
     def _send(self, to_send):
-        return self._stdin.write(to_send)
+        count = self._stdin.write(to_send)
+        self._stdin.flush()
+        return count
