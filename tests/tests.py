@@ -3,6 +3,7 @@ import unittest
 from sudo_root.stegano import LSBExtractor
 from sudo_root.misc import zxing
 from sudo_root.crypto import Lcg
+from sudo_root.forensic import keycode
 
 
 def relative_path(path):
@@ -57,6 +58,16 @@ class TestLcg(unittest.TestCase):
 
         self.assertEqual(state, 24792052844465667546212387)
         self.assertEqual(next_values, expected_next_values)
+
+
+class TestKeycode(unittest.TestCase):
+
+    def test_extract_keycode(self):
+        keycode_pcap_path = relative_path("test_assets/keycode.pcap")
+        extracted_keycode_path = relative_path("test_assets/keycode.extracted")
+        keycodes = keycode.get_keystroke_from_pcap(keycode_pcap_path)
+        target_keycodes = keycode.get_keystroke_from_data(extracted_keycode_path)
+        self.assertEqual(keycodes, target_keycodes)
 
 
 if __name__ == '__main__':
