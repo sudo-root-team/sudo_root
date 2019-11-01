@@ -66,7 +66,8 @@ class TestKeycode(unittest.TestCase):
         keycode_pcap_path = relative_path("test_assets/keycode.pcap")
         extracted_keycode_path = relative_path("test_assets/keycode.extracted")
         keycodes = keycode.get_keystroke_from_pcap(keycode_pcap_path)
-        target_keycodes = keycode.get_keystroke_from_data(extracted_keycode_path)
+        target_keycodes = keycode.get_keystroke_from_data(
+            extracted_keycode_path)
         self.assertEqual(keycodes, target_keycodes)
 
 
