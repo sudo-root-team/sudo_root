@@ -298,7 +298,10 @@ def get_keystroke_from_data(data_file):
     """Extract keystroke from data file as outputed by tshark
     tshark -r key.pcap -T fields -e usb.capdata.
     """
-    data_reports = open(data_file).read().split('\n')
+    with open(data_file) as f:
+        data_reports = f.read().split('\n')
+        f.close()
+
     reports = []
 
     for d in data_reports:
